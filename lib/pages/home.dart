@@ -1,7 +1,10 @@
+import "dart:convert";
+
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:speech_to_text/speech_recognition_result.dart";
 import "package:speech_to_text/speech_to_text.dart";
+import "package:http/http.dart";
 import "package:harry_potter_points/widgets/house_card.dart";
 
 class Home extends StatefulWidget {
@@ -18,6 +21,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   late bool speechAvailable;
   bool entry = true;
   String command = "";
+  bool error = false;
   bool recording = false;
 
   @override
@@ -44,13 +48,21 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   void stopListening() async {
     await stt.stop();
-    setState(() {});
+    var response = await post(Uri.parse("https://the-giant-hourglasses.vercel.app/change-points"), body: {"command": command});
+    Map data = jsonDecode(response.body);
+    if (data.containsKey("error")) {
+      setState(() {
+        command = "Error: Invalid command";
+        error = true;
+      });
+    }
   }
 
-  void registerWords(SpeechRecognitionResult words) {
+  void registerWords(SpeechRecognitionResult words) async {
     setState(() {
       command = words.recognizedWords.substring(0, 1).toUpperCase() +
           words.recognizedWords.substring(1);
+      error = false;
     });
   }
 
@@ -140,8 +152,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         : command,
                     style: TextStyle(
                         fontFamily: GoogleFonts.jost().fontFamily,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.white,
+                        fontStyle: (!error) ? FontStyle.italic : null,
+                        fontWeight: (!error) ? null : FontWeight.bold,
+                        color: (!error) ? Colors.white : Colors.red,
                         fontSize: 30),
                   )
                 ],
