@@ -37,5 +37,3 @@ def add_points():
     db.modify_points(points[0], points[1])
 
     return {"message": "Points successfully changed"}
-    
-
