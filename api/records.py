@@ -10,6 +10,6 @@ class HousePoints:
     
     def modify_points(self, points: int, house: str):
         record = self.points_table.find_one({"_id": "66e9ab5efe4bae29b114a2f3"})
-        self.points_table.update_one({"_id": "66e9ab5efe4bae29b114a2f3"}, {house: record[house]+points})
+        self.points_table.update_one({"_id": "66e9ab5efe4bae29b114a2f3"}, {"$set": {house: record[house]+points}})
         self.log_table.insert_one({"points": points, "house": house})
         return 0
