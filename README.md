@@ -1,1 +1,1 @@
-# harry-potter-points
+# harry-potter-points-api
