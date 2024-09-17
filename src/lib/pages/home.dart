@@ -59,8 +59,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   void registerWords(SpeechRecognitionResult words) async {
+    String a = words.recognizedWords;
     setState(() {
-      command = words.recognizedWords.toLowerCase();
+      command = a.substring(0, 1).toUpperCase() + a.substring(1);
       error = false;
     });
   }

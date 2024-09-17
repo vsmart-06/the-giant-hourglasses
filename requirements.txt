@@ -1,2 +1,3 @@
 Flask
 pymongo
+word2number
