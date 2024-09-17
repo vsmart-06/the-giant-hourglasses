@@ -12,7 +12,7 @@ def index():
     return "<marquee direction = 'left'><h1>Welcome to Hogwarts!</h1></marquee>"
 
 @app.route("/change-points", methods = ["POST"])
-def add_points():
+def change_points():
     data = request.form
     command = data.get("command")
     db = HousePoints(MONGO_LINK)
@@ -41,3 +41,11 @@ def add_points():
     db.modify_points(points[0], points[1])
 
     return {"message": "Points successfully changed"}
+
+@app.route("/get-points", methods = ["GET"])
+def get_points():
+    data = request.args
+    house = data.get("house")
+    db = HousePoints(MONGO_LINK)
+    
+    return {"data": db.get_points(house)}

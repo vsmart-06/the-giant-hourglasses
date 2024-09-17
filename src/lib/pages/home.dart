@@ -23,12 +23,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   String command = "";
   bool error = false;
   bool recording = false;
+  Map<String, int> points = {"gryffindor": 0, "hufflepuff": 0, "ravenclaw": 0, "slytherin": 0};
 
   @override
   void initState() {
     super.initState();
 
     initializeSpeech();
+    initializePoints();
     animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
     opacity = Tween<double>(begin: 1, end: 0).animate(animationController);
@@ -39,6 +41,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initializeSpeech() async {
     speechAvailable = await stt.initialize();
     setState(() {});
+  }
+
+  void initializePoints() async {
+    var response = await get(Uri.parse("https://the-giant-hourglasses.vercel.app/change-points"));
+    setState(() {
+      points = jsonDecode(response.body)["data"];
+    });
   }
 
   void startListening() async {
@@ -61,7 +70,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void registerWords(SpeechRecognitionResult words) async {
     String a = words.recognizedWords;
     setState(() {
-      command = a.substring(0, 1).toUpperCase() + a.substring(1);
+      command = a.substring(0, 1).toUpperCase() + a.substring(1).toLowerCase();
       error = false;
     });
   }
@@ -122,25 +131,25 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     children: [
                       HouseCard(
                           house: "Gryffindor",
-                          points: 0,
+                          points: points["gryffindor"]!,
                           colour: Color(0xFF740001),
                           accent: Color(0xFFD3A625),
                           crest: "https://i.imgur.com/e5yoXUs.png"),
                       HouseCard(
                           house: "Hufflepuff",
-                          points: 0,
+                          points: points["hufflepuff"]!,
                           colour: Color(0xFFFFD800),
                           accent: Colors.black,
                           crest: "https://i.imgur.com/6va7uxA.png"),
                       HouseCard(
                           house: "Ravenclaw",
-                          points: 0,
+                          points: points["ravenclaw"]!,
                           colour: Color(0xFF0E1A40),
                           accent: Color(0xFF946B2D),
                           crest: "https://i.imgur.com/9RKkW4j.png"),
                       HouseCard(
                           house: "Slytherin",
-                          points: 0,
+                          points: points["slytherin"]!,
                           colour: Color(0xFF1A472A),
                           accent: Color(0xFF5D5D5D),
                           crest: "https://i.imgur.com/KPORQ6B.png"),
