@@ -1,10 +1,9 @@
 import pymongo
-import certifi
 
 class HousePoints:
     def __init__(self, link: str):
         self.link = link
-        self.client = pymongo.MongoClient(link, tlsCAFile = certifi.where())
+        self.client = pymongo.MongoClient(link)
         self.db = self.client.get_database("giant_hourglasses")
         self.points_table = self.db.get_collection("house_points")
         self.log_table = self.db.get_collection("log_changes")
