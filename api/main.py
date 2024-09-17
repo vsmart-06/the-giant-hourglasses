@@ -1,5 +1,5 @@
 from flask import Flask, request
-from records import HousePoints
+from api.records import HousePoints
 import os
 import dotenv
 
