@@ -125,13 +125,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            child: !recording ? Icon(Icons.mic) : Icon(Icons.stop),
             tooltip: "Change points for a house",
             onPressed: () async {
               recording = !recording;
               recording ? startListening() : stopListening();
             },
             backgroundColor: Color(0xFF5758FF),
+            child: !recording ? Icon(Icons.mic) : Icon(Icons.stop),
           ),
         ),
         entry
