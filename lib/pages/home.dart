@@ -25,7 +25,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     super.initState();
 
     initializeSpeech();
-    animationController = AnimationController(vsync: this, duration: Duration(seconds: 1));
+    animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
     opacity = Tween<double>(begin: 1, end: 0).animate(animationController);
     opacity.addStatusListener(checkFinish);
     animationController.forward();
@@ -48,9 +49,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   void registerWords(SpeechRecognitionResult words) {
     setState(() {
-      command = words.recognizedWords;
+      command = words.recognizedWords.substring(0, 1).toUpperCase() +
+          words.recognizedWords.substring(1);
     });
-    print(command);
   }
 
   void checkFinish(AnimationStatus status) {
@@ -67,13 +68,26 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       children: [
         Scaffold(
           appBar: AppBar(
-            title: Text(
-              "The Giant Hourglasses",
-              style: TextStyle(
+            title: Column(
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "The Giant Hourglasses",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: GoogleFonts.jost().fontFamily,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30),
+                ),
+                Divider(
+                  thickness: 1,
                   color: Colors.white,
-                  fontFamily: GoogleFonts.jost().fontFamily,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30),
+                  indent: 200,
+                  endIndent: 200,
+                )
+              ],
             ),
             centerTitle: true,
             backgroundColor: Colors.transparent,
@@ -89,7 +103,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 ),
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -120,6 +134,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                           crest: "https://i.imgur.com/KPORQ6B.png"),
                     ],
                   ),
+                  Text(
+                    (command == "")
+                        ? "Try: \"5 points to Ravenclaw\""
+                        : command,
+                    style: TextStyle(
+                        fontFamily: GoogleFonts.jost().fontFamily,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.white,
+                        fontSize: 30),
+                  )
                 ],
               ),
             ],
