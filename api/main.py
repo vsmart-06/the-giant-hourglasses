@@ -10,7 +10,7 @@ app = Flask(__name__)
 def index():
     return "<marquee direction = 'left'><h1>Welcome to Hogwarts!</h1></marquee>"
 
-@app.route("/add-points", methods = ["POST"])
+@app.route("/change-points", methods = ["POST"])
 def add_points():
     data = request.form
     command = data.get("command")
