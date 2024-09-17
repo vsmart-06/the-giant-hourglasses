@@ -1,9 +1,6 @@
 from flask import Flask, request
 from api.records import HousePoints
 import os
-import dotenv
-
-dotenv.load_dotenv()
 
 MONGO_LINK = os.getenv("MONGO_LINK")
 
