@@ -25,6 +25,7 @@ class _HouseCardState extends State<HouseCard> with SingleTickerProviderStateMix
   late AnimationController animationController;
   List<Animation> padAnimation = [];
 	bool front = true;
+  bool hover = false;
 
   @override
   void initState() {
@@ -42,7 +43,7 @@ class _HouseCardState extends State<HouseCard> with SingleTickerProviderStateMix
 
   void activateAnimation(bool value) {
     value ? animationController.forward() : animationController.reverse();
-    setState(() {front = !front;});
+    setState(() {front = !front; hover = value;});
   }
 
   @override
@@ -60,9 +61,11 @@ class _HouseCardState extends State<HouseCard> with SingleTickerProviderStateMix
           height: 0.4 * MediaQuery.of(context).size.height,
           child: TextButton(
             onPressed: () {
-							setState(() {
-							  front = !front;
-							});
+              if (!hover) {
+                setState(() {
+                  front = !front;
+                });
+              }
 						},
             onHover: (value) => activateAnimation(value),
             style: ButtonStyle(
