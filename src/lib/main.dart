@@ -4,6 +4,7 @@ import "package:harry_potter_points/pages/home.dart";
 void main() {
   runApp(
     MaterialApp(
+      title: "The Giant Hourglasses",
       routes: {
         "/": (context) => Home(),
       },
