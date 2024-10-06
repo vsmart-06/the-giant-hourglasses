@@ -15,6 +15,7 @@ def index():
 def change_points():
     data = request.form
     command = data.get("command")
+    command = command.lower()
     db = HousePoints(MONGO_LINK)
 
     if len(command.split()) != 4:

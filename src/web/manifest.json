@@ -1,11 +1,11 @@
 {
-    "name": "harry_potter_points",
-    "short_name": "harry_potter_points",
+    "name": "The Giant Hourglasses",
+    "short_name": "The Giant Hourglasses",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "The Giant Hourglasses",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
