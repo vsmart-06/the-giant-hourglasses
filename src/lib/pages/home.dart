@@ -1,5 +1,4 @@
 import "dart:convert";
-
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:speech_to_text/speech_recognition_result.dart";
@@ -179,8 +178,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           floatingActionButton: FloatingActionButton(
             tooltip: "Change points for a house",
             onPressed: () async {
-              recording = !recording;
-              recording ? startListening() : stopListening();
+              setState(() {
+                recording = !recording;
+                recording ? startListening() : stopListening();
+              });
             },
             backgroundColor: Color(0xFF5758FF),
             child: !recording ? Icon(Icons.mic) : Icon(Icons.stop),
