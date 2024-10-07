@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS
 from word2number import w2n
 from api.records import HousePoints
 import os
@@ -6,6 +7,7 @@ import os
 MONGO_LINK = os.getenv("MONGO_LINK")
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def index():
