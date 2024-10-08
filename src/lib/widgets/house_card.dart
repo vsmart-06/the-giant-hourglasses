@@ -57,11 +57,11 @@ class _HouseCardState extends State<HouseCard> with SingleTickerProviderStateMix
             side: BorderSide(color: widget.accent!, width: 2),
             borderRadius: BorderRadius.circular(20)),
         child: SizedBox(
-          width: 0.15 * MediaQuery.of(context).size.width,
-          height: 0.4 * MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width * (MediaQuery.of(context).orientation == Orientation.landscape ? 0.15 : 0.7),
+          height: MediaQuery.of(context).size.height * (MediaQuery.of(context).orientation == Orientation.landscape ? 0.4 : 0.6),
           child: TextButton(
             onPressed: () {
-              if (!hover) {
+              if (MediaQuery.of(context).orientation == Orientation) {
                 setState(() {
                   front = !front;
                 });
@@ -91,7 +91,7 @@ class _HouseCardState extends State<HouseCard> with SingleTickerProviderStateMix
                         fontSize: 40),
                   )
                 ] : [
-									Image(image: NetworkImage(widget.crest))
+									Image(image: NetworkImage(widget.crest), fit: BoxFit.contain)
 								]),
           ),
         ),
