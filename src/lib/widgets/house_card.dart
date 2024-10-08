@@ -61,7 +61,7 @@ class _HouseCardState extends State<HouseCard> with SingleTickerProviderStateMix
           height: MediaQuery.of(context).size.height * (MediaQuery.of(context).orientation == Orientation.landscape ? 0.4 : 0.6),
           child: TextButton(
             onPressed: () {
-              if (MediaQuery.of(context).orientation == Orientation) {
+              if (MediaQuery.of(context).orientation == Orientation.portrait) {
                 setState(() {
                   front = !front;
                 });
